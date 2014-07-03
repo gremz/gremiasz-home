@@ -75,6 +75,16 @@ h3 {
     text-decoration: none;
 }
 
+/* Social */
+
+.nav-social {
+  padding-top: 50px;
+}
+
+.nav-social img {
+  padding-left: 5px;
+}
+
 .content-subhead {
     text-transform: uppercase;
     color: #aaa;
@@ -160,7 +170,7 @@ h3 {
     .content {
          padding: 2em 3em 0; 
          margin-left: 25%; 
-}
+    }
 
     .header {
         margin: 80% 2em 0;
@@ -171,6 +181,13 @@ h3 {
         position: fixed;
         top: 0;
         bottom: 0;
+    }
+}
+
+@media (max-width: 48em) {
+  /* Social Icons */
+    .nav-social {
+        padding-top: 30px;
     }
 }
 
@@ -203,10 +220,12 @@ h3 {
     max-width: 800px;
     margin-bottom: 50px;
     line-height: 1.6em;
+    font-family: Georgia, "Cambria", serif
 }
 
 .about-me-content-subhead {
     margin: 50px 0 10px 0;
     font-weight: 300;
     color: #888;
+    font-family: sans-serif;
 }
