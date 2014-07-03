@@ -1,0 +1,73 @@
+---
+layout: default
+title: Greg Remiasz, Grzegorz Remiasz - About Me
+---
+
+<div class="about-header">
+    <h1>about me</h1>
+    <h2>the developer. 1988.</h2>
+</div>
+
+<div class="about-me-content">
+    <h2 class="about-me-content-subhead">What I do</h2>
+    <p>
+         I am a Developer currently working in Web technologies using HTML (5), CSS (2/3), Javascript (jQuery, jQueryUI,
+         Angular, Backbone, Underscore, among many many others), Ruby (Ruby on Rails).
+    </p>
+
+    <h2 class="about-me-content-subhead">Education</h2>
+    <p>
+        Bachelor of Computer Science from Northern Illinois University.
+    </p>
+
+    <h2 class="about-me-content-subhead">Experience</h2>
+    <p>
+        <script src="//platform.linkedin.com/in.js" type="text/javascript"></script>
+        <script type="IN/MemberProfile" data-id="http://www.linkedin.com/pub/grzegorz-remiasz/39/399/842" data-format="inline" data-related="false"></script>
+    </p>
+
+    <h2 class="about-me-content-subhead">Github Projects</h2>
+    <div class="pure-g" id="githubProjects">
+        
+    </div>
+</div>
+
+<script type="text/javascript">
+
+window.onload = function() {
+    console.log("DFSDFDS");
+    if (window.XMLHttpRequest) {
+        xmlhttp = new XMLHttpRequest();
+    } else {
+        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+    }
+    xmlhttp.onreadystatechange = function() {
+        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+            createProjects(xmlhttp.responseText);
+        }
+    }
+    xmlhttp.open("GET","https://api.github.com/users/remremz/repos?type=all&sort=updated",true);
+    xmlhttp.send();
+};
+
+function createProjects(rawData) {
+    if (!rawData) return;
+
+    var data = JSON.parse(rawData),
+        githubProjects = document.getElementById('githubProjects');
+
+    for (repo in data) {
+        console.log(data[repo]);
+        var el = createProjectContainer(data[repo]);
+        githubProjects.appendChild(el);
+    }
+}
+
+function createProjectContainer(repo) {
+    var el = document.createElement('div');
+    el.className = "pure-u-1 pure-u-md-1-2 pure-u-lg-1-4";
+    el.innerHTML += ('<h4><a href="' + repo.html_url + '">' + repo.name + '</a></h4>');
+    return el;
+}
+
+</script>
