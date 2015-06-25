@@ -9,7 +9,7 @@ window.onload = function() {
             createProjects(xmlhttp.responseText);
         }
     }
-    xmlhttp.open("GET","https://api.github.com/users/remremz/repos?type=all&sort=updated",true);
+    xmlhttp.open("GET","https://api.github.com/users/gremz/repos?type=all&sort=updated",true);
     xmlhttp.send();
 
     if (document.location.search && document.location.search.indexOf('private') > -1) {
