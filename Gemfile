@@ -6,3 +6,4 @@ ruby "2.1.2"
 gem 'jekyll'
 gem 'rack-jekyll'
 gem 'RedCloth'
+gem 'github-pages', group: :jekyll_plugins
