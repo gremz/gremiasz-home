@@ -1,5 +1,4 @@
 name: Greg Remiasz Website
 url: http://www.gregremiasz.com
-markdown: redcarpet
 pygments: true
 exclude: ['vendor']
