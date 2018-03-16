@@ -16,24 +16,20 @@ function privateMode(callback) {
       window.localStorage.removeItem('test');
   }
 
+
   retry(function () { return db ? db.readyState === 'done' : true }, function () {
     callback(is_private);
   });
 
-  function retry(isDone, next) {
-    var currentTrial = 0, maxRetry = 50, interval = 10, isTimeout = false;
+  (function retry(pass) {
+    // var currentTrial = 0, maxRetry = 50, interval = 10, isTimeout = false;
     var id = window.setInterval(function() {
-      if (isDone()) {
-          window.clearInterval(id);
-          next(isTimeout);
-      }
-      if (currentTrial++ > maxRetry) {
-          window.clearInterval(id);
-          isTimeout = true;
-          next(isTimeout);
+      console.log('try #', pass);
+      if (db ? db.readyState === 'done' : true) window.clearInterval(id); retry(pass);
+      if (pass++ > 50) window.clearInterval(id); callback(is_private);
       }
     }, 10);
-  }
+  })()
 }
     
     
