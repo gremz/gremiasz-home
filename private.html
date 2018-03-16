@@ -1,0 +1,66 @@
+<html>
+<body>
+  <script>
+function privateMode(callback) {
+        var is_private, db, ua = window.navigator.userAgent.toLowerCase(), ieMatch = /(?:msie|rv:)\\s?([\\d\\.]+)/.exec(ua), edge = /edge/.exec(ua);
+        // Chrome
+        if (window.webkitRequestFileSystem) {
+          window.webkitRequestFileSystem(window.TEMPORARY, 1, function() {
+              is_private = false;
+          }, function(e) {
+              console.log(e);
+              is_private = true;
+          });
+        //Firefox
+        } else if (window.indexDB && /Firefox/.test(ua)) {
+          try {
+            db = window.indexedDB.open('test');
+          } catch (e) {
+            is_private = true;
+          }
+          if (typeof is_private === 'undefined') {
+            retry(function () {
+              return db.readyState === 'done' ? true : false;
+            }, function (is_timeout) {
+              if (!is_timeout) {
+                is_private = db.result ? false : true;
+              }
+            });
+          }
+        } else if ((ieMatch && parseInt(ieMatch[1], 10) >= 10) || (edge && edge[0] == "edge")) {
+          is_private = false;
+          try { !window.indexedDB && (is_private = true); } catch (e) { (is_private = true); }
+        } else if (window.localStorage && /Safari/.test(ua)) {
+          is_private = false;
+          try { window.openDatabase(null, null, null, null); } catch (e) { is_private = true; }
+          try { window.localStorage.setItem('test', 1); } catch (e) { is_private = true; }
+          window.localStorage.removeItem('test');
+        }
+
+        retry(function () {
+          return typeof is_private !== 'undefined' ? true : false;
+        }, function () {
+          callback(is_private);
+        });
+      }
+
+      function retry(isDone, next) {
+        var currentTrial = 0, maxTetry = 50, interval = 10, isTimeout = false;
+        var id = window.setInterval(function() {
+          if (isDone()) {
+              window.clearInterval(id);
+              next(isTimeout);
+          }
+          if (currentTrial++ > maxRetry) {
+              window.clearInterval(id);
+              isTimeout = true;
+              next(isTimeout);
+          }
+        }, 10);
+    }
+    
+    
+ privateMode(function(isPrivate) { document.body.innerHTML += isPrivate; });
+</script>
+</body>
+ </html>
