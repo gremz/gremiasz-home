@@ -2,7 +2,7 @@
 <body>
   <script>
 function privateMode(callback) {
-        var is_private = false, db, ua = window.navigator.userAgent.toLowerCase(), ieMatch = /(?:msie|rv:)\\s?([\\d\\.]+)/.exec(ua), edge = /edge/.exec(ua);
+        var is_private = false, db, ua = window.navigator.userAgent.toLowerCase(), ieMatch = /(?:msie|rv:)\s?([\d\.]+)/.exec(ua), edge = /edge/.exec(ua);
         // Chrome
         if (window.webkitRequestFileSystem) {
           window.webkitRequestFileSystem(window.TEMPORARY, 1, function() {
