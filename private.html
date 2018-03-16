@@ -12,7 +12,7 @@ function privateMode(callback) {
               is_private = true;
           });
         //Firefox
-        } else if (window.indexDB && /Firefox/.test(ua)) {
+        } else if (window.indexedDB && /firefox/.test(ua)) {
           try {
             db = window.indexedDB.open('test');
           } catch (e) {
@@ -30,7 +30,7 @@ function privateMode(callback) {
         } else if ((ieMatch && parseInt(ieMatch[1], 10) >= 10) || (edge && edge[0] == "edge")) {
           is_private = false;
           try { !window.indexedDB && (is_private = true); } catch (e) { (is_private = true); }
-        } else if (window.localStorage && /Safari/.test(ua)) {
+        } else if (window.localStorage && /safari/.test(ua)) {
           is_private = false;
           try { window.openDatabase(null, null, null, null); } catch (e) { is_private = true; }
           try { window.localStorage.setItem('test', 1); } catch (e) { is_private = true; }
