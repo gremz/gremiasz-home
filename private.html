@@ -45,7 +45,7 @@ function privateMode(callback) {
       }
 
       function retry(isDone, next) {
-        var currentTrial = 0, maxTetry = 50, interval = 10, isTimeout = false;
+        var currentTrial = 0, maxRetry = 50, interval = 10, isTimeout = false;
         var id = window.setInterval(function() {
           if (isDone()) {
               window.clearInterval(id);
