@@ -7,7 +7,7 @@
 <body>
   <script>
 function privateMode(callback) {
-        var us = window.navigator.userAgent;
+        var ua = window.navigator.userAgent;
         var isPrivate = false, db, ieMatch = /(?:MSIE|rv:)\s?([\d\.]+)/.exec(ua), edge = /Edge/.exec(ua), pass = 50;
         if (window.webkitRequestFileSystem) {
           window.webkitRequestFileSystem(window.TEMPORARY, 1, function() {}, function(e) { isPrivate = true; });
