@@ -1,34 +1,32 @@
 <html>
+<head>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
+  <script type="text/javascript" src="http://ssor.trb.stage.tribdev.com/reg/tribune/latarc.min.js"></script>
+  <script type="text/javascript" src="http://dss.p2p.development/meter/latngux.js"></script>
+</head>
 <body>
   <script>
 function privateMode(callback) {
-  var is_private = false, db, ua = window.navigator.userAgent.toLowerCase(), ieMatch = /(?:msie|rv:)\s?([\d\.]+)/.exec(ua), edge = /edge/.exec(ua);
-  if (window.webkitRequestFileSystem) {
-    window.webkitRequestFileSystem(window.TEMPORARY, 1, function() {}, function(e) { is_private = true; });
-  } else if (window.indexedDB && /firefox/.test(ua)) {
-      db = window.indexedDB.open('test');
-      db.onerror = function() { is_private = true }
-  } else if ((ieMatch && parseInt(ieMatch[1], 10) >= 10) || (edge && edge[0] == "edge")) {
-      try { !window.indexedDB && (is_private = true); } catch (e) { is_private = true; }
-  } else if (window.localStorage && /safari/.test(ua)) {
-      try { window.openDatabase(null, null, null, null); } catch (e) { is_private = true; }
-      try { window.localStorage.setItem('test', 1); } catch (e) { is_private = true; }
-      window.localStorage.removeItem('test');
-  }
-
-  (function retry(pass) {
-    var id = window.setInterval(function() {
-      console.log('try #', pass);
-      if ((db ? db.readyState === 'done' : true) || (pass++ > 50)) {
-        window.clearInterval(id); 
-        callback(is_private);
+        var us = window.navigator.userAgent;
+        var isPrivate = false, db, ieMatch = /(?:MSIE|rv:)\s?([\d\.]+)/.exec(ua), edge = /Edge/.exec(ua), pass = 50;
+        if (window.webkitRequestFileSystem) {
+          window.webkitRequestFileSystem(window.TEMPORARY, 1, function() {}, function(e) { isPrivate = true; });
+        } else if (window.indexedDB && /Firefox/.test(ua)) {
+            db = window.indexedDB.open('test');
+            db.onerror = function() { isPrivate = true }
+            
+            (function retry() {
+              if (db && db.readyState !== 'done') pass-- ? setTimeout(retry, 10) : callback(isPrivate);
+            })();
+        } else if ((ieMatch && parseInt(ieMatch[1], 10) >= 10) || (edge && edge[0] == "Edge")) {
+            !window.indexedDB && (isPrivate = true);
+        } else if (window.localStorage && /Safari/.test(ua)) {
+            try { window.openDatabase(null, null, null, null); window.localStorage.setItem('test', 1); callback(isPrivate); } catch (e) { isPrivate = true; }
+            window.localStorage.removeItem('test');
+        }
       }
-    }, 10);
-  })()
-}
     
-    
- privateMode(function(isPrivate) { document.body.innerHTML += isPrivate; });
+privateMode(function(isPrivate) { document.body.innerHTML += isPrivate; });
 </script>
 </body>
  </html>
