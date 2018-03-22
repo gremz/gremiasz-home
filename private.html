@@ -2,14 +2,14 @@
 <head>
   <script type="text/javascript" src="http://code.jquery.com/jquery-2.2.4.min.js"></script>
   <script type="text/javascript" src="http://ssor.trb.stage.tribdev.com/reg/tribune/latarc.min.js"></script>
-  <!-- <script type="text/javascript" src="http://dss.p2p.development/meter/latngux.js"></script> -->
+  <script type="text/javascript" src="http://www.dss.trb.stage.tribdev.com/meter/chiprj.min.js"></script>
 </head>
 <body>
   <script>
 function privateMode(callback) {
         var ua = window.navigator.userAgent;
         var isPrivate, ieMatch = /(?:MSIE|rv:)\s?([\d\.]+)/.exec(ua), tries = 3,
-          pass = function() { isPrivate = false; console.log('passed'); }, fail = function() { isPrivate = true; console.log('failed'); };
+          pass = function() { isPrivate = false; }, fail = function() { isPrivate = true; };
 
         if (window.webkitRequestFileSystem) {
           webkitRequestFileSystem(TEMPORARY, 1, pass, fail);
