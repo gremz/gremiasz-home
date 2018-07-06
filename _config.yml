@@ -1,4 +1,5 @@
 name: Greg Remiasz Website
+title: Greg Remiasz
 url: http://www.gregremiasz.com
-pygments: true
+highlighter: rouge
 exclude: ['vendor']
