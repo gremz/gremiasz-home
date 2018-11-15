@@ -1,0 +1,15 @@
+<html>
+<head>
+<script>
+  function test() {
+    try {
+      window.openDatabase(null, null, null, null);
+      document.body.innerHTML += 'not icognito';
+    } catch (e) {
+      document.body.innerHTML += 'allegedly icognito';
+    }
+  }
+</script>
+</head>
+<body onload="test();"></body>
+</html>
