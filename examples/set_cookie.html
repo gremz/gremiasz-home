@@ -11,7 +11,7 @@
       let cookieText = document.querySelector('.cookieSet');
 
 
-      cookieText.text = "Current cookies: " + document.cookie;
+      cookieText.innerText = "Current cookies: " + document.cookie;
       button.addEventListener("onclick", () => { 
         document.cookie = 'test_cookie=true';
         location.reload(); 
