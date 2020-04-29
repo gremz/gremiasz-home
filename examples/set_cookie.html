@@ -12,9 +12,17 @@
 
 
       cookieText.innerText = "Current cookies: " + document.cookie;
-      button.addEventListener("click", () => { 
-        document.cookie = 'test_cookie=true';
-        location.reload(); 
+      button.addEventListener("click", (e) => { 
+        e.preventDefault();
+        let promise = document.requestStorageAccess();
+        promise.then(
+          function() {
+            document.cookie = 'test_cookie=true';
+            location.reload();
+          },
+          function() {
+            cookieText.innerText = "Storage Permission denied";
+          });
       });
     }
   </script>
