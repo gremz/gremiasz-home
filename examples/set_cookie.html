@@ -11,29 +11,11 @@
       let cookieText = document.querySelector('.cookieSet');
 
 
-      let storageRequestPromise = document.hasStorageAccess();
-      storageRequestPromise.then(
-        function(hasAccess) {
-          if (hasAccess) {
-            cookieText.innerText = "Current cookies: " + document.cookie;
-          } else {
-            cookieText.innerText = "No Storage Access";
-          }
-        }, function(reason) {
-          console.log('rejected request storagre');
-        });
-
+      cookieText.innerText = "Current cookies: " + document.cookie;
       button.addEventListener("click", (e) => { 
         e.preventDefault();
-        let promise = document.requestStorageAccess();
-        promise.then(
-          function() {
-            document.cookie = 'test_cookie=true';
-            location.reload();
-          },
-          function() {
-            cookieText.innerText = "Storage Permission denied";
-          });
+        document.cookie = 'test_cookie=true';
+        location.reload(); 
       });
     }
   </script>
