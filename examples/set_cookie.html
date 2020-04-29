@@ -11,7 +11,18 @@
       let cookieText = document.querySelector('.cookieSet');
 
 
-      cookieText.innerText = "Current cookies: " + document.cookie;
+      let storageRequestPromise = document.hasStorageAccess();
+      storageRequestPromise.then(
+        function(hasAccess) {
+          if (true) {
+            cookieText.innerText = "Current cookies: " + document.cookie;
+          } else {
+            cookieText.innerText = "No Storage Access";
+          }
+        }, function(reason) {
+          console.log('rejected request storagre');
+        });
+
       button.addEventListener("click", (e) => { 
         e.preventDefault();
         let promise = document.requestStorageAccess();
