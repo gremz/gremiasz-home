@@ -14,7 +14,7 @@
       let storageRequestPromise = document.hasStorageAccess();
       storageRequestPromise.then(
         function(hasAccess) {
-          if (true) {
+          if (hasAccess) {
             cookieText.innerText = "Current cookies: " + document.cookie;
           } else {
             cookieText.innerText = "No Storage Access";
