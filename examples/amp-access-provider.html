@@ -12,7 +12,7 @@ var ctrl = {
     console.log('trigger connect');
   },
   authorize: function() {
-    return Promise(function(success) {
+    return new Promise(function(success) {
       // main logic checking if cookie exists
       let showPaywall = document.cookie.indexOf('test_cookie') > -1 ? false : true;
 
